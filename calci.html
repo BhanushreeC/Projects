@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCalci</title>
+</head>
+<style>
+    body {
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        background-color: #AD88C6;
+        height: 90vh;
+    }
+
+    .calculator {
+        width: 280px;
+        background-color: #FFC5C5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 1px;
+        border-radius: 20px;
+    }
+
+    button {
+        height: 60px;
+        width: 60px;
+        font-size: 20px;
+        border-radius: 10%;
+        margin: 2px;
+    }
+    .display{
+        height: 55px;
+        background-color: white;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
+    .op {
+        background-color: #E0AED0;
+        transition: all 1s;
+    }
+
+    button.keys {
+        background-color: #FFE5E5;
+        transition: all 1s;
+    }
+    button.keys:hover{
+        background-color: #fa7cc1;
+        transform: scale(1.00);
+        border: none;
+        color: purple;
+    }
+
+    .eq {
+        background-color: #C5EBAA;
+        height: 240px;
+        transition: 1s;
+    }
+    .eq:hover{
+        background-color:#a0e071 ;
+        transform: scale(1.00);
+        border: none;
+        color: crimson;
+    }
+
+    .ex {
+        background-color: #EEA5A6;
+        transition: 1s;
+    }
+    .ex:hover{
+        background-color: #9f5052;
+        color: white;
+    }
+
+    button.op:hover {
+        background-color: #756AB6;
+        color: white;
+        transform: scale(1.01);
+        border: none;
+        color: white;
+    }
+    .box
+    {
+        display: flex;
+    }
+</style>
+<body>
+    <div class="calculator">
+
+        <div class="keys">
+            <div class="display"></div>
+            <div class="row1">
+                <button class="op" onclick="appendOperator('+')">+</button>
+                <button class="op" onclick="appendOperator('-')">-</button>
+                <button class="op" onclick="appendOperator('*')">x</button>
+                <button class="op" onclick="appendOperator('/')">÷</button>
+            </div>
+            <div class="box">
+                <div class="nums">
+                    <div class="row2">
+                        <button class="keys" onclick="appendNumber(7)">7</button>
+                        <button class="keys" onclick="appendNumber(8)">8</button>
+                        <button class="keys" onclick="appendNumber(9)">9</button>
+                    </div>
+                    <div class="row3">
+                        <button class="keys" onclick="appendNumber(4)">4</button>
+                        <button class="keys" onclick="appendNumber(5)">5</button>
+                        <button class="keys" onclick="appendNumber(6)">6</button>
+                    </div>
+                    <div class="row3">
+                        <button class="keys" onclick="appendNumber(1)">1</button>
+                        <button class="keys" onclick="appendNumber(2)">2</button>
+                        <button class="keys" onclick="appendNumber(3)">3</button>
+                    </div>
+                    <div class="row4">
+                        <button class="ex" onclick="appendDecimal()">.</button>
+                        <button class="keys" onclick="appendNumber(0)">0</button>
+                        <button class="ex" onclick="clearDisplay()">AC</button>
+                    </div>
+                </div>
+                <div class="equal">
+                    <button class="eq" onclick="calculate()">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript functions for calculator operations
+        let displayValue = '';
+
+        function appendNumber(number) {
+            displayValue += number;
+            updateDisplay();
+        }
+
+        function appendOperator(operator) {
+            displayValue += operator;
+            updateDisplay();
+        }
+
+        function appendDecimal() {
+            // Only append decimal if there's no existing decimal point in the current number
+            if (!displayValue.includes('.')) {
+                displayValue += '.';
+                updateDisplay();
+            }
+        }
+
+        function clearDisplay() {
+            displayValue = '';
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            document.querySelector('.display').innerText = displayValue;
+        }
+
+        function calculate() {
+            try {
+                const result = eval(displayValue);
+                if (!isNaN(result)) {
+                    displayValue = result.toString();
+                    updateDisplay();
+                } else {
+                    throw new Error('Invalid expression');
+                }
+            } catch (error) {
+                displayValue = 'Error';
+                updateDisplay();
+            }
+        }
+    </script>
+</body>
+
+</html>
